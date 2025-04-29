@@ -8,6 +8,8 @@ import SalesList from './pages/SalesList';
 import AdminPanel from './pages/AdminPanel';
 import AdminView from './pages/AdminView';
 import Dashboard from './pages/Dashboard';
+import DashboardCharts from './pages/DashboardCharts';
+
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -19,6 +21,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Route path="/admin-panel" element={<AdminPanel />} />
     <Route path="/admin-view" element={<AdminView />} />
     <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/dashboard-charts" element={<DashboardCharts />} />
+
 
   </Routes>
   </BrowserRouter>
