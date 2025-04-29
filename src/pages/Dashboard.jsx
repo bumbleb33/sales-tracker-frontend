@@ -70,7 +70,10 @@ export default function Dashboard() {
                         style={{ left: `calc(${left}% - 12px)` }}
                         title={`🎯 ${inc.milestone_devices} → ${inc.reward}`}
                       >
-                        <div className={\`w-6 h-6 rounded-full \${achieved ? 'bg-green-500 text-white' : 'bg-yellow-300 text-black'} flex items-center justify-center shadow-md text-sm\`}>
+                        <div className={
+                          "w-6 h-6 rounded-full flex items-center justify-center shadow-md text-sm " +
+                          (achieved ? "bg-green-500 text-white" : "bg-yellow-300 text-black")
+                        }>
                           {achieved ? '✅' : '🎯'}
                         </div>
                       </div>
