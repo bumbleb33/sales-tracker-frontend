@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import AddSale from './pages/AddSale';
 import './index.css';
+import SalesList from './pages/SalesList';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
