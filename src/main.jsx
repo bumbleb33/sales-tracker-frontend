@@ -10,6 +10,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/add-sale" element={<AddSale />} />
+      <Route path="/sales-list" element={<SalesList />} />
     </Routes>
   </BrowserRouter>
 );
