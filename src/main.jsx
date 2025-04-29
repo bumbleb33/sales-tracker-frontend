@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import App from './App';
 import Home from './pages/Home';
 import AddSale from './pages/AddSale';
 import './index.css';
@@ -12,6 +11,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/" element={<Home />} />
       <Route path="/add-sale" element={<AddSale />} />
     </Routes>
-    <App />
   </BrowserRouter>
 );
