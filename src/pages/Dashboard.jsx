@@ -40,30 +40,42 @@ export default function Dashboard() {
       {/* Region Progress Section */}
       <div className="mb-12">
         <h2 className="text-2xl font-semibold mb-4">Region Targets & Progress</h2>
-        <div className="space-y-4">
+        <div className="space-y-6">
           {regions.map(region => {
             const regionTarget = targets.find(t => t.region === region);
             const regionSales = getSalesCount(region);
             const percent = regionTarget ? Math.min((regionSales / regionTarget.target_devices) * 100, 100) : 0;
+            const targetValue = regionTarget?.target_devices || 1;
             const regionIncentives = incentives
               .filter(i => i.region === region)
               .sort((a, b) => a.milestone_devices - b.milestone_devices);
 
             return (
-              <div key={region} className="bg-white p-4 rounded shadow">
+              <div key={region} className="bg-white p-4 rounded shadow relative">
                 <div className="flex justify-between mb-2">
                   <span className="font-semibold">{region}</span>
                   <span>{regionSales} / {regionTarget?.target_devices || 'N/A'} devices</span>
                 </div>
-                <div className="w-full h-5 bg-gray-200 rounded overflow-hidden mb-2">
+
+                <div className="relative w-full h-6 bg-gray-200 rounded overflow-hidden mb-3">
                   <div className="h-full bg-[#021faa]" style={{ width: percent + '%' }}></div>
-                </div>
-                <div className="flex flex-wrap gap-2 text-sm">
-                  {regionIncentives.map((i, idx) => (
-                    <div key={idx} className={`px-3 py-1 rounded-full ${regionSales >= i.milestone_devices ? 'bg-green-500 text-white' : 'bg-yellow-100 text-yellow-800'}`}>
-                      🎯 {i.milestone_devices} → {i.reward}
-                    </div>
-                  ))}
+
+                  {/* Incentive markers */}
+                  {regionIncentives.map((inc, i) => {
+                    const left = Math.min((inc.milestone_devices / targetValue) * 100, 100);
+                    const achieved = regionSales >= inc.milestone_devices;
+                    return (
+                      <div key={i}
+                        className="absolute -top-7 text-xs text-center"
+                        style={{ left: `calc(${left}% - 10px)` }}
+                        title={`🎯 ${inc.milestone_devices} → ${inc.reward}`}
+                      >
+                        <div className={`w-5 h-5 rounded-full ${achieved ? 'bg-green-500 text-white' : 'bg-yellow-400 text-black'} flex items-center justify-center`}>
+                          {achieved ? '✅' : '🎯'}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             );
