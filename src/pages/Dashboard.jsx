@@ -60,16 +60,18 @@ export default function Dashboard() {
                 <div className="relative w-full h-6 bg-gray-200 rounded overflow-visible mb-3">
                   <div className="h-full bg-[#021faa]" style={{ width: percent + '%' }}></div>
 
-                  {/* Incentive markers */}
+                  {/* Incentive markers with text */}
                   {regionIncentives.map((inc, i) => {
                     const left = Math.min((inc.milestone_devices / targetValue) * 100, 100);
                     const achieved = regionSales >= inc.milestone_devices;
                     return (
                       <div key={i}
-                        className="absolute -top-7 text-xs text-center z-10"
-                        style={{ left: `calc(${left}% - 12px)` }}
-                        title={`🎯 ${inc.milestone_devices} → ${inc.reward}`}
+                        className="absolute -top-16 text-xs text-center z-10"
+                        style={{ left: `calc(${left}% - 18px)` }}
                       >
+                        <div className="font-semibold mb-1 leading-tight text-gray-700">
+                          {achieved ? '✅' : '🎯'} {inc.milestone_devices}<br/>₹{inc.reward}
+                        </div>
                         <div className={
                           "w-6 h-6 rounded-full flex items-center justify-center shadow-md text-sm " +
                           (achieved ? "bg-green-500 text-white" : "bg-yellow-300 text-black")
