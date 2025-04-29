@@ -33,9 +33,25 @@ export default function Dashboard() {
     return Object.entries(leaderboard).sort((a, b) => b[1] - a[1]);
   };
 
+  const totalSales = sales.length;
+  const totalTarget = targets.reduce((sum, t) => sum + t.target_devices, 0);
+  const totalPercent = totalTarget ? Math.min((totalSales / totalTarget) * 100, 100) : 0;
+
   return (
     <div className="min-h-screen bg-gray-100 p-6 text-gray-900">
-      <h1 className="text-4xl font-bold text-[#021faa] mb-6 text-center">Sales Dashboard</h1>
+      <h1 className="text-4xl font-bold text-[#021faa] mb-2 text-center">Sales Dashboard</h1>
+      <p className="text-center text-gray-600 mb-8">Track targets, rewards, and leaderboard progress</p>
+
+      {/* Overall Sales Progress */}
+      <div className="max-w-4xl mx-auto bg-white p-4 mb-10 rounded shadow">
+        <div className="flex justify-between mb-2 text-lg font-medium">
+          <span>Total Sales Progress</span>
+          <span>{totalSales} / {totalTarget} ({totalPercent.toFixed(2)}%)</span>
+        </div>
+        <div className="w-full h-6 bg-gray-200 rounded overflow-hidden">
+          <div className="h-full bg-[#021faa]" style={{ width: totalPercent + '%' }}></div>
+        </div>
+      </div>
 
       {/* Region Progress Section */}
       <div className="mb-12">
@@ -53,30 +69,30 @@ export default function Dashboard() {
             return (
               <div key={region} className="bg-white p-4 rounded shadow relative">
                 <div className="flex justify-between mb-2">
-                  <span className="font-semibold">{region}</span>
-                  <span>{regionSales} / {regionTarget?.target_devices || 'N/A'} devices</span>
+                  <span className="font-semibold text-[#021faa]">{region}</span>
+                  <span className="text-sm text-gray-700">{regionSales} / {regionTarget?.target_devices || 'N/A'} devices</span>
                 </div>
 
-                <div className="relative w-full h-6 bg-gray-200 rounded overflow-visible mb-3">
+                <div className="relative w-full h-6 bg-gray-200 rounded overflow-visible mb-2">
                   <div className="h-full bg-[#021faa]" style={{ width: percent + '%' }}></div>
 
-                  {/* Incentive markers with text */}
+                  {/* Incentive markers with hover tooltip */}
                   {regionIncentives.map((inc, i) => {
                     const left = Math.min((inc.milestone_devices / targetValue) * 100, 100);
                     const achieved = regionSales >= inc.milestone_devices;
                     return (
                       <div key={i}
-                        className="absolute -top-16 text-xs text-center z-10"
-                        style={{ left: `calc(${left}% - 18px)` }}
+                        className="absolute -top-3 z-20 group"
+                        style={{ left: `calc(${left}% - 12px)` }}
                       >
-                        <div className="font-semibold mb-1 leading-tight text-gray-700">
-                          {achieved ? '✅' : '🎯'} {inc.milestone_devices}<br/>₹{inc.reward}
-                        </div>
                         <div className={
-                          "w-6 h-6 rounded-full flex items-center justify-center shadow-md text-sm " +
+                          "w-6 h-6 rounded-full flex items-center justify-center text-sm shadow-md cursor-pointer " +
                           (achieved ? "bg-green-500 text-white" : "bg-yellow-300 text-black")
                         }>
                           {achieved ? '✅' : '🎯'}
+                        </div>
+                        <div className="absolute -top-14 left-1/2 -translate-x-1/2 w-max bg-black text-white text-xs font-semibold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
+                          {inc.milestone_devices} → ₹{inc.reward}
                         </div>
                       </div>
                     );
@@ -89,7 +105,7 @@ export default function Dashboard() {
       </div>
 
       {/* Leaderboard */}
-      <div className="mb-12">
+      <div className="mb-12 max-w-4xl mx-auto">
         <h2 className="text-2xl font-semibold mb-4">Leaderboard</h2>
         <div className="bg-white shadow rounded overflow-hidden">
           <table className="w-full table-auto text-left">
