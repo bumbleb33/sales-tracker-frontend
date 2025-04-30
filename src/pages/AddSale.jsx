@@ -17,7 +17,7 @@ export default function AddSale() {
   const [region, setRegion] = useState('North');
   const [message, setMessage] = useState('');
   const [randomQuote, setRandomQuote] = useState('');
-  const [unitsSold, setUnitsSold] = useState(1);
+  const [unitsSold, setUnitsSold] = useState('');
 
 
   useEffect(() => {
