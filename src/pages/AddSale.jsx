@@ -70,6 +70,14 @@ export default function AddSale() {
           className="w-full p-3 rounded-md bg-gray-700/30 border border-gray-500 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-blue-400" 
           required 
         />
+        
+        <input
+          type="number"
+          value={unitsSold}
+          onChange={e => setUnitsSold(e.target.value)}
+          placeholder="Units Sold "
+          className="w-full p-3 rounded border"/>
+
         <select 
           value={region} 
           onChange={e => setRegion(e.target.value)} 
