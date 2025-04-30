@@ -17,6 +17,8 @@ export default function AddSale() {
   const [region, setRegion] = useState('North');
   const [message, setMessage] = useState('');
   const [randomQuote, setRandomQuote] = useState('');
+  const [unitsSold, setUnitsSold] = useState(1);
+
 
   useEffect(() => {
     const index = Math.floor(Math.random() * quotes.length);
@@ -70,13 +72,14 @@ export default function AddSale() {
           className="w-full p-3 rounded-md bg-gray-700/30 border border-gray-500 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-blue-400" 
           required 
         />
-        
+
         <input
           type="number"
           value={unitsSold}
           onChange={e => setUnitsSold(e.target.value)}
           placeholder="Units Sold "
-          className="w-full p-3 rounded border"/>
+          className="w-full p-3 rounded-md bg-gray-700/30 border border-gray-500 placeholder-gray-300 text-white focus:outline-none focus:ring-2 focus:ring-blue-400" 
+          />
 
         <select 
           value={region} 
